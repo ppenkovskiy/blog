@@ -6,19 +6,36 @@
 {% endblock %}
 
 {% block css_files %}
-    <link rel="stylesheet" href="{% static "blog/post.css" %}"/>
-    <link rel="stylesheet" href="{% static "blog/all-posts.css" %}"/>
+    <link rel="stylesheet" href="{% static "blog/post-detail.css" %}"/>
 {% endblock %}
 
 {% block content %}
     <section id="summary">
         <h2>Post Title</h2>
         <article>
-            <img src="" alt="Post Title">
+            <img src="{% static "blog/images/mountains.jpg" %}" alt="Post Title">
             <address>By horse.</address>
             <div>
-                Last updated on <time>Ju</time>
+                Last updated on <time>July 10th</time>
             </div>
         </article>
     </section>
+
+    <main>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores atque corporis culpa deleniti,
+            deserunt distinctio, dolor dolore eius fugit harum labore maxime nisi perferendis quae quis ratione
+            vel. Quam.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores atque corporis culpa deleniti,
+            deserunt distinctio, dolor dolore eius fugit harum labore maxime nisi perferendis quae quis ratione
+            vel. Quam.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores atque corporis culpa deleniti,
+            deserunt distinctio, dolor dolore eius fugit harum labore maxime nisi perferendis quae quis ratione
+            vel. Quam.
+        </p>
+    </main>
 {% endblock %}
