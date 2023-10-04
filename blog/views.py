@@ -11,4 +11,4 @@ def posts(request):
 
 
 def post_detail(request):
-    return HttpResponse('Post details')
+    pass

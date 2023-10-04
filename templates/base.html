@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>
@@ -10,11 +11,15 @@
     <link rel="stylesheet" href="{% static 'app.css' %}"/>
     {% block css_files %}{% endblock %}
 </head>
+
 <body>
     <header id="main-navigation">
-        <h1><a href="">Horse Blog.</a></h1>
-        <nav><a href="">All Posts</a></nav>
+        <h1><a href="{% url "starting-page" %}">Horse Blog.</a></h1>
+        <nav>
+            <a href="{% url "posts-page" %}">All Posts</a>
+        </nav>
     </header>
     {% block content %}{% endblock %}
 </body>
+
 </html>
