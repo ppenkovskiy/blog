@@ -13,10 +13,10 @@
     <section id="summary">
         <h2>{{ post.title }}</h2>
         <article>
-            <img src="{% static 'blog/images/'|add:post.image %}" alt={{ posts.title }}>
+            <img src="{% static 'blog/images/'|add:post.image_name %}" alt={{ posts.title }}>
             <address>{{ post.author }}</address>
             <div>
-                Last updated on <time>{{ post.date|date:"d M Y" }}</time>
+                Last updated on <time>{{ post.date }}</time>
             </div>
         </article>
     </section>
