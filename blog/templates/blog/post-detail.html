@@ -12,9 +12,10 @@
 {% block content %}
     <section id="summary">
         <h2>{{ post.title }}</h2>
+        <h3>{{ post.tag }}</h3>
         <article>
             <img src="{% static 'blog/images/'|add:post.image_name %}" alt={{ posts.title }}>
-            <address>{{ post.author }}</address>
+            <address>by {{ post.author }}</address>
             <div>
                 Last updated on <time>{{ post.date }}</time>
             </div>
