@@ -22,11 +22,6 @@ class Tag(models.Model):
         return f"{self.caption}"
 
 
-class Comment(models.Model):
-    comment_author = models.CharField(max_length=25)
-    comment_text = models.CharField(max_length=1000)
-
-
 class Post(models.Model):
     title = models.CharField(max_length=100)
     excerpt = models.CharField(max_length=200)
@@ -36,7 +31,6 @@ class Post(models.Model):
     content = models.TextField(validators=[MinLengthValidator(10)])
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, related_name='posts')
     tag = models.ManyToManyField(Tag)
-    comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, null=True, related_name='posts')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -44,3 +38,22 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    class Meta:
+        ordering = ('date',)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.post}"
