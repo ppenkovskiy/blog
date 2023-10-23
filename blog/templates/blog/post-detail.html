@@ -13,17 +13,14 @@
     <section id="summary">
         <h2>{{ post.title }}</h2>
         <div>
-            {% for t in post_tags %}
+            {% for t in post.tag.all %}
                 <span class="tag">{{ t.caption }}</span>
             {% endfor %}
-
         </div>
         <article>
-            <img src="{% static 'blog/images/'|add:post.image_name %}" alt={{ posts.title }}>
+            <img src="{{ post.image.url }}" alt={{ post.title }} />
             <address>by <a href="mailto:{{ post.author.email_address }}">{{ post.author }}</a></address>
-            <div>
-                Last updated on <time>{{ post.date }}</time>
-            </div>
+            <div>Last updated on <time>{{ post.date }}</time></div>
         </article>
     </section>
 
