@@ -26,6 +26,14 @@
                 <span class="tag">{{ t.caption }}</span>
             {% endfor %}
         </div>
+
+        <div id="read-later">
+            <form>
+                {% csrf_token %}
+                <button>Read Later</button>
+            </form>
+        </div>
+
         <article>
             <img src="{{ post.image.url }}" alt={{ post.title }} />
             <address>by <a href="mailto:{{ post.author.email_address }}">{{ post.author }}</a></address>
@@ -33,11 +41,20 @@
         </article>
     </section>
 
-
-
     <main>
         {{ post.content|linebreaks }}
     </main>
+
+    <section id="comments">
+        <ul>
+        {% for comment in comments %}
+            <li>
+                <h2>{{ comment.user_name }}</h2>
+                <p>{{ comment.text|linebreaks }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    </section>
 
     <section id="comment-form">
         <h2>Your Comment</h2>
