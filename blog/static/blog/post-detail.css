@@ -62,18 +62,17 @@ body {
 }
 
 #read-later button {
-  background-color: white;
+  background-color: transparent;
   border: 1px solid white;
   padding: 0.5rem 2rem;
   font: inherit;
-  color: #390281;
+  color: white;
   cursor: pointer;
-  border-radius: 8px;
 }
 
 #read-later button:hover,
 #read-later button:active {
-  background-color: rgba(255, 255, 255, 0.55);
+  background-color: white;
   color: #390281;
 }
 
@@ -92,7 +91,6 @@ main {
   color: #390281;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  margin-top: 0.5rem;
 }
 
 #comment-form {

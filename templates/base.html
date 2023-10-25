@@ -5,10 +5,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>
-        {% block title %}{% endblock %}
-    </title>
-    <link rel="stylesheet" href="{% static 'app.css' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/app.css' %}"/>
     {% block css_files %}{% endblock %}
 </head>
 
@@ -16,10 +15,14 @@
     <header id="main-navigation">
         <h1><a href="{% url "starting-page" %}">My Blog</a></h1>
         <nav>
+            <a href="{% url "read-later-page" %}">Stored Posts</a>
             <a href="{% url "posts-page" %}">All Posts</a>
         </nav>
     </header>
-    {% block content %}{% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
 </body>
 
 </html>
