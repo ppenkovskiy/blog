@@ -15,6 +15,7 @@ My Stored Posts
             <p>You didn't save any posts for later.</p>
         {% else %}
             <ul>
+                <h1>My Stored Techniques</h1>
                 {% for post in posts %}
                     <li><a href="{% url "post-detail-page" post.slug %}">{{ post.title }}</a></li>
                 {% endfor %}

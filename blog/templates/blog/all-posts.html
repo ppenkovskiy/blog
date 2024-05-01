@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    All My Posts
+    All My Notes
 {% endblock %}
 
 {% block css_files %}
@@ -12,7 +12,7 @@
 
 {% block content %}
     <section id="all-posts">
-        <h2>My collected posts</h2>
+        <h2>My collected techniques</h2>
         <ul>
             {% for post in all_posts %}
                 {% include "blog/includes/post.html" %}

@@ -44,6 +44,7 @@ class ReviewDetailView(View):
             'comments': post.comments.all().order_by('-id'),
             'saved_for_later': self.is_stored_post(request, post.id),
         }
+
         return render(request, 'blog/post-detail.html', context)
 
     def post(self, request, slug):
