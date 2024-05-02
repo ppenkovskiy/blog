@@ -2,32 +2,21 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
-from .models import Post, Tag, Author
+from .models import Post, Tag, Comment
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
 
-from .serializers import PostSerializer, TagSerializer, AuthorSerializer
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .serializers import PostSerializer
+from rest_framework import viewsets
 
 
-class PostAPIList(generics.ListCreateAPIView):
+class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-
-
-class TagAPIList(generics.ListCreateAPIView):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-
-
-class AuthorAPIList(generics.ListCreateAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class StartingPageView(ListView):

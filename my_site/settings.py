@@ -131,3 +131,13 @@ STATICFILES_DIRS = [
 # Do not use the same folder that you use for staticfiles for security reasons
 MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = '/files/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'  # comment this while deploying
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}

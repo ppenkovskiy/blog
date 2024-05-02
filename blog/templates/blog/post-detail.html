@@ -37,14 +37,13 @@
                     {% else %}
                         Read Later
                     {% endif %}
-
                 </button>
             </form>
         </div>
 
         <article>
             <img src="{{ post.image.url }}" alt={{ post.title }} />
-            <address>by <a href="mailto:{{ post.author.email_address }}">{{ post.author }}</a></address>
+{#            <address>by <a href="mailto:{{ post.user.email_address }}">{{ post.user }}</a></address>#}
             <div>Last updated on <time>{{ post.date }}</time></div>
         </article>
     </section>
