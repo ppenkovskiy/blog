@@ -29,8 +29,8 @@ router.register(r'comments', CommentViewSet)
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('api/auth/', include('rest_framework.urls')), # session-based authentication
-                  path('api/v1/auth/', include('djoser.urls')),  # token-authentication with djoser
+                  path('api/session_based_auth/', include('rest_framework.urls')), # session-based authentication
+                  path('api/auth/', include('djoser.urls')),  # token-authentication with djoser
                   re_path(r'^auth/', include('djoser.urls.authtoken')), # token-authentication with djoser
                   path('', include("blog.urls")),
                   path('blog/', include("blog.urls")),

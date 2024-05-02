@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Post, Tag, Comment
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
@@ -28,7 +29,8 @@ class TagViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticated)
+    # authentication_classes = (TokenAuthentication, SessionAuthentication)
 
 
 class StartingPageView(ListView):
