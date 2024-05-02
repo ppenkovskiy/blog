@@ -29,6 +29,7 @@ router.register(r'comments', CommentViewSet)
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
+                  path('api/auth/', include('rest_framework.urls')), # session-based authentication
                   path('', include("blog.urls")),
                   path('blog/', include("blog.urls")),
                   path('api/', include(router.urls)),
