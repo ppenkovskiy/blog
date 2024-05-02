@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from blog.views import *
@@ -30,6 +30,8 @@ router.register(r'comments', CommentViewSet)
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('api/auth/', include('rest_framework.urls')), # session-based authentication
+                  path('api/v1/auth/', include('djoser.urls')),  # token-authentication with djoser
+                  re_path(r'^auth/', include('djoser.urls.authtoken')), # token-authentication with djoser
                   path('', include("blog.urls")),
                   path('blog/', include("blog.urls")),
                   path('api/', include(router.urls)),
