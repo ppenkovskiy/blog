@@ -45,6 +45,7 @@
             <img src="{{ post.image.url }}" alt={{ post.title }} />
 {#            <address>by <a href="mailto:{{ post.user.email_address }}">{{ post.user }}</a></address>#}
             <div>Last updated on <time>{{ post.date }}</time></div>
+            <div>Owner: {{ post.user }}</div>
         </article>
     </section>
 
@@ -56,7 +57,7 @@
         <ul>
         {% for comment in comments %}
             <li>
-                <h2>{{ comment.user_name }}</h2>
+                <h2>{{ comment.user.username }}</h2>
                 <p>{{ comment.text|linebreaks }}</p>
             </li>
         {% endfor %}
@@ -64,7 +65,6 @@
     </section>
 
     <section id="comment-form">
-        <h2>Your Comment</h2>
         <form action="{% url "post-detail-page" post.slug %}" method="POST">
             {% csrf_token %}
             {% for form_field in comment_form %}

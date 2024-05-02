@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import UniqueConstraint
 from django.utils.text import slugify
 from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
@@ -18,8 +19,8 @@ class Post(models.Model):
     date = models.DateField(auto_now=True)
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
-
     tag = models.ManyToManyField(Tag)
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -39,7 +40,6 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    user_name = models.CharField(max_length=80)
-    user_email = models.EmailField()
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE, related_name='comments')
     text = models.TextField(max_length=400)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

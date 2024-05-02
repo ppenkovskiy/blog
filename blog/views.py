@@ -2,21 +2,33 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Post, Tag, Comment
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
-
-from .serializers import PostSerializer
+from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly
+from .serializers import PostSerializer, TagSerializer, CommentSerializer
 from rest_framework import viewsets
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class StartingPageView(ListView):
@@ -59,13 +71,16 @@ class ReviewDetailView(View):
 
         return render(request, 'blog/post-detail.html', context)
 
+    @method_decorator(login_required)
     def post(self, request, slug):
         comment_form = CommentForm(request.POST)
         post = Post.objects.get(slug=slug)
+        user = request.user
 
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post = post
+            comment.user = user
             comment.save()
             return HttpResponseRedirect(reverse('post-detail-page', args=[slug]))
 
