@@ -26,6 +26,7 @@ urlpatterns = [
     path('blog/', include("blog.urls")),
     path('api/posts/', PostAPIList.as_view()),
     path('api/tags/', TagAPIList.as_view()),
+    path('api/authors/', AuthorAPIList.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

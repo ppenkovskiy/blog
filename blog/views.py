@@ -3,11 +3,11 @@ from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
 
-from .models import Post, Tag
+from .models import Post, Tag, Author
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
 
-from .serializers import PostSerializer, TagSerializer
+from .serializers import PostSerializer, TagSerializer, AuthorSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
@@ -21,6 +21,12 @@ class PostAPIList(generics.ListCreateAPIView):
 class TagAPIList(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+class AuthorAPIList(generics.ListCreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
