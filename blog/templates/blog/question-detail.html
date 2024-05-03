@@ -43,7 +43,6 @@
 
         <article>
             <img src="{{ question.image.url }}" alt={{ question.title }} />
-{#            <address>by <a href="mailto:{{ question.user.email_address }}">{{ question.user }}</a></address>#}
             <div>Last updated on <time>{{ question.date }}</time></div>
             <div>Owner: {{ question.user }}</div>
         </article>
@@ -53,18 +52,21 @@
         {{ question.content|linebreaks }}
     </main>
 
+
     {% if comments %}
     <section id="comments">
+        <h1>Comments and questions section</h1>
         <ul>
         {% for comment in comments %}
             <li>
-                <h2>{{ comment.user.username }}</h2>
+                <h3>User: {{ comment.user.username }}</h3>
                 <p>{{ comment.text|linebreaks }}</p>
             </li>
         {% endfor %}
         </ul>
     </section>
     {% endif %}
+
 
     <section id="comment-form">
         {% if user.is_authenticated %}

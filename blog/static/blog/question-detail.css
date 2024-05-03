@@ -105,9 +105,9 @@ main {
 
 #comment-form button {
   font: inherit;
-  background-color: #390281;
+  background-color: #7d5680;
   color: white;
-  border: 1px solid #390281;
+  border: 1px solid #7d5680;
   padding: 0.5rem 1.5rem;
   border-radius: 6px;
   cursor: pointer;
@@ -115,8 +115,8 @@ main {
 
 #comment-form button:hover,
 #comment-form button:active {
-  background-color: #4f0ba7;
-  border-color: #4f0ba7;
+  background-color: #792680;
+  border-color: #792680;
 }
 
 .form-control {
