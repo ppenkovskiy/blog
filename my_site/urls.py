@@ -16,12 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
+
 from blog.views import *
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
 
 router = routers.DefaultRouter()
 router.register(r'posts', PostViewSet)
@@ -31,13 +32,18 @@ router.register(r'comments', CommentViewSet)
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include("blog.urls")),
-                  path('blog/', include("blog.urls")),
                   path('api/', include(router.urls)),
-                  path('api/session_based_auth/', include('rest_framework.urls')),  # session-based authentication
-                  path('api/auth/', include('djoser.urls')),  # token-authentication with djoser
-                  re_path(r'^auth/', include('djoser.urls.authtoken')), # token-authentication with djoser
-                  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # JWT-authentication
-                  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # JWT-authentication
-                  path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),  # JWT-authentication
+                  path('auth/', include('rest_framework.urls', namespace='rest_framework')),  # SB-auth
+                  path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+                  path('signup/', signup, name='signup'),
+
+                  # path('api/auth/', include('djoser.urls')),  # token-authentication with djoser
+                  # re_path(r'^auth/', include('djoser.urls.authtoken')), # token-authentication with djoser
+                  # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # JWT-authentication
+                  # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # JWT-authentication
+                  # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),  # JWT-authentication
+
+
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

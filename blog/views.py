@@ -1,17 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Post, Tag, Comment
-from .forms import CommentForm
+from .forms import CommentForm, SignUpForm
 from django.http import HttpResponseRedirect
 from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly
 from .serializers import PostSerializer, TagSerializer, CommentSerializer
 from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate, login
 
 
 class PostAPIPagination(PageNumberPagination):
@@ -134,4 +135,21 @@ class ReadLaterView(View):
         request.session['stored_posts'] = stored_posts
 
         return HttpResponseRedirect('/')  # redirect to starting page
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                # gog in the user
+                login(request, user)
+                return redirect('/')
+    else:
+        form = SignUpForm()
+    return render(request, 'blog/signup.html', {'form': form})
 

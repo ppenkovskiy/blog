@@ -47,3 +47,12 @@ h3 {
 #main-navigation h1 a:active {
   color: white;
 }
+
+#main-navigation h1 a,
+#main-navigation a {
+  font-size: 1.75rem;
+}
+
+#main-navigation nav a {
+  margin-left: 3rem;
+}

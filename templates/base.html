@@ -15,6 +15,13 @@
     <header id="main-navigation">
         <h1><a href="{% url "starting-page" %}">Homepage</a></h1>
         <nav>
+            {% if user.is_authenticated %}
+                <a>Hello, {{ user.username }}!</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'rest_framework:login' %}">Log in</a>
+                <a href="{% url 'signup' %}">Sign up</a>
+            {% endif %}
             <a href="{% url "read-later-page" %}">Starred techniques</a>
             <a href="{% url "posts-page" %}">All techniques</a>
         </nav>
