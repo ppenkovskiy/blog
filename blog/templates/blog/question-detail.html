@@ -49,13 +49,14 @@
     </section>
 
     <main>
+        <h2>Explanation</h2>
         {{ question.content|linebreaks }}
     </main>
 
 
     {% if comments %}
     <section id="comments">
-        <h1>Comments and questions section</h1>
+        <h1>Comments</h1>
         <ul>
         {% for comment in comments %}
             <li>
@@ -82,7 +83,7 @@
                 <button>Save comment</button>
             </form>
         {% else %}
-            <p >To comment this question, please, log in.</p>
+            <p >To comment this question, please, <a href="{% url 'rest_framework:login' %}">log in.</a></p>
         {% endif %}
     </section>
 

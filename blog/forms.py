@@ -24,5 +24,5 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['text']
         labels = {
-            'text': 'Please, type your comment or question here'
+            'text': 'Please, type your comment or additional questions here'
         }

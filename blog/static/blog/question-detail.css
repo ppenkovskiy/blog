@@ -36,10 +36,9 @@ body {
 }
 
 #summary article img {
-  width: 12rem;
-  height: 12rem;
+  /*width: 12rem;*/
+  /*height: 12rem;*/
   border-radius: 12px;
-  transform: rotateZ(5deg);
   border: 5px solid white;
   margin-bottom: 1rem;
 }
@@ -62,18 +61,16 @@ body {
 }
 
 #read-later button {
-  background-color: transparent;
-  border: 1px solid white;
-  padding: 0.5rem 2rem;
-  font: inherit;
-  color: white;
-  cursor: pointer;
+  background-color: white;
+  color: #390281;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
 #read-later button:hover,
 #read-later button:active {
-  background-color: white;
-  color: #390281;
+  background-color: #e8b059;
+  color: white;
 }
 
 main {
@@ -115,8 +112,8 @@ main {
 
 #comment-form button:hover,
 #comment-form button:active {
-  background-color: #792680;
-  border-color: #792680;
+  background-color: #e8b059;
+  border-color: #e8b059;
 }
 
 .form-control {

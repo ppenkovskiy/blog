@@ -146,7 +146,6 @@ def signup(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                # gog in the user
                 login(request, user)
                 return redirect('/')
     else:
