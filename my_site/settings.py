@@ -30,6 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     # getenv('APP_HOST'),
     '127.0.0.1',
+    '0.0.0.0',
+    '127.0.0.0',
 ]
 
 # Application definition

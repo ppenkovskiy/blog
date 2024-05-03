@@ -151,4 +151,3 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'blog/signup.html', {'form': form})
-
