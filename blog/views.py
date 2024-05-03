@@ -4,28 +4,28 @@ from django.views.generic import ListView
 from django.views import View
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from .models import Post, Tag, Comment
+from .models import Question, Tag, Comment
 from .forms import CommentForm, SignUpForm
 from django.http import HttpResponseRedirect
 from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly
-from .serializers import PostSerializer, TagSerializer, CommentSerializer
+from .serializers import QuestionSerializer, TagSerializer, CommentSerializer
 from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login
 
 
-class PostAPIPagination(PageNumberPagination):
+class QuestionAPIPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 100
 
 
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
     permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
-    pagination_class = PostAPIPagination
+    pagination_class = QuestionAPIPagination
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -43,96 +43,96 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 class StartingPageView(ListView):
     template_name = 'blog/index.html'
-    model = Post
-    context_object_name = 'posts'
+    model = Question
+    context_object_name = 'questions'
 
     def get_queryset(self):
         return super().get_queryset().order_by('-date')[:3]
 
 
-class AllPostsView(ListView):
-    template_name = 'blog/all-posts.html'
-    model = Post
-    context_object_name = 'all_posts'
+class AllQuestionsView(ListView):
+    template_name = 'blog/all-questions.html'
+    model = Question
+    context_object_name = 'all_questions'
 
     def get_queryset(self):
         return super().get_queryset().order_by('-date')
 
 
 class ReviewDetailView(View):
-    def is_stored_post(self, request, post_id):
-        stored_posts = request.session.get('stored_posts')
-        if stored_posts is not None:
-            is_saved_for_later = post_id in stored_posts
+    def is_stored_question(self, request, question_id):
+        stored_questions = request.session.get('stored_questions')
+        if stored_questions is not None:
+            is_saved_for_later = question_id in stored_questions
         else:
             is_saved_for_later = False
         return is_saved_for_later
 
     def get(self, request, slug):
-        post = Post.objects.get(slug=slug)
+        question = Question.objects.get(slug=slug)
 
         context = {
-            'post': post,
-            'post_tags': post.tag.all(),
+            'question': question,
+            'question_tags': question.tag.all(),
             'comment_form': CommentForm(),
-            'comments': post.comments.all().order_by('-id'),
-            'saved_for_later': self.is_stored_post(request, post.id),
+            'comments': question.comments.all().order_by('-id'),
+            'saved_for_later': self.is_stored_question(request, question.id),
         }
 
-        return render(request, 'blog/post-detail.html', context)
+        return render(request, 'blog/question-detail.html', context)
 
     @method_decorator(login_required)
     def post(self, request, slug):
         comment_form = CommentForm(request.POST)
-        post = Post.objects.get(slug=slug)
+        question = Question.objects.get(slug=slug)
         user = request.user
 
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.post = post
+            comment.question = question
             comment.user = user
             comment.save()
-            return HttpResponseRedirect(reverse('post-detail-page', args=[slug]))
+            return HttpResponseRedirect(reverse('question-detail-page', args=[slug]))
 
         context = {
-            'post': post,
-            'post_tags': post.tag.all(),
+            'question': question,
+            'question_tags': question.tag.all(),
             'comment_form': comment_form,
-            'comments': post.comments.all().order_by('-id'),
-            'saved_for_later': self.is_stored_post(request, post.id),
+            'comments': question.comments.all().order_by('-id'),
+            'saved_for_later': self.is_stored_question(request, question.id),
         }
-        return render(request, 'blog/post-detail.html', context)
+        return render(request, 'blog/question-detail.html', context)
 
 
 class ReadLaterView(View):
     def get(self, request):
-        stored_posts = request.session.get('stored_posts')
+        stored_questions = request.session.get('stored_questions')
         context = {}
 
-        if stored_posts is None or len(stored_posts) == 0:
-            context['posts'] = []
-            context['has_posts'] = False
+        if stored_questions is None or len(stored_questions) == 0:
+            context['questions'] = []
+            context['has_questions'] = False
         else:
-            posts = Post.objects.filter(id__in=stored_posts)
-            context['posts'] = posts
-            context['has_posts'] = True
+            questions = Question.objects.filter(id__in=stored_questions)
+            context['questions'] = questions
+            context['has_questions'] = True
 
-        return render(request, 'blog/stored-posts.html', context)
+        return render(request, 'blog/stored-questions.html', context)
 
     def post(self, request):
-        stored_posts = request.session.get('stored_posts')
+        stored_questions = request.session.get('stored_questions')
 
-        if stored_posts is None:
-            stored_posts = []
+        if stored_questions is None:
+            stored_questions = []
 
-        post_id = int(request.POST['post_id'])
+        question_id = int(request.POST['question_id'])
 
-        if post_id not in stored_posts:
-            stored_posts.append(post_id)
+        if question_id not in stored_questions:
+            stored_questions.append(question_id)
         else:
-            stored_posts.remove(post_id)
+            stored_questions.remove(question_id)
 
-        request.session['stored_posts'] = stored_posts
+        request.session['stored_questions'] = stored_questions
 
         return HttpResponseRedirect('/')  # redirect to starting page
 

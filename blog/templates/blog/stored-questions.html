@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+My Stored Questions
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "blog/stored-questions.css" %}">
+{% endblock %}
+
+{% block content %}
+    <section id="stored-questions">
+        {% if not has_questions %}
+            <p>You didn't save any questions for later.</p>
+        {% else %}
+            <h2>My Stored Questions</h2>
+            <ul>
+                {% for question in questions %}
+                    <li><a href="{% url "question-detail-page" question.slug %}">{{ question.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+{% endblock %}
+

@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Post, Tag, Comment
+from .models import Question, Tag, Comment
 
 
-class PostSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
-        model = Post
+        model = Question
         fields = '__all__'
 
 

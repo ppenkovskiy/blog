@@ -25,7 +25,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
 router = routers.DefaultRouter()
-router.register(r'posts', PostViewSet)
+router.register(r'questions', QuestionViewSet)
 router.register(r'tags', TagViewSet)
 router.register(r'comments', CommentViewSet)
 

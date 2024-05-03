@@ -1,0 +1,13 @@
+{% load static %}
+
+<li>
+    <article class="question">
+        <a href="{% url "question-detail-page" question.slug %}">
+            <img src="{{ question.image.url }}" alt="{{ question.title }}">
+            <div class="question__content">
+                <h3>{{ question.title }}</h3>
+                <p>{{ question.excerpt }}</p>
+            </div>
+        </a>
+    </article>
+</li>

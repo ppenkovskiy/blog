@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    All My Notes
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "blog/question.css" %}"/>
+    <link rel="stylesheet" href="{% static "blog/all-questions.css" %}"/>
+{% endblock %}
+
+{% block content %}
+    <section id="all-questions">
+        <h2>All questions</h2>
+        <ul>
+            {% for question in all_questions %}
+                {% include "blog/includes/question.html" %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

@@ -12,10 +12,10 @@ class Tag(models.Model):
         return f"{self.caption}"
 
 
-class Post(models.Model):
+class Question(models.Model):
     title = models.CharField(max_length=100)
     excerpt = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='posts', null=True)
+    image = models.ImageField(upload_to='questions', null=True)
     date = models.DateField(auto_now=True)
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
@@ -34,7 +34,7 @@ class Post(models.Model):
         constraints = [
             UniqueConstraint(
                 fields=['title', 'excerpt', 'content'],
-                name='unique_post'
+                name='unique_question'
             )
         ]
 
@@ -42,4 +42,4 @@ class Post(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE, related_name='comments')
     text = models.TextField(max_length=400)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='comments')

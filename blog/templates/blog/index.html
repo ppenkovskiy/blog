@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_files %}
-    <link rel="stylesheet" href="{% static "blog/post.css" %}"/>
+    <link rel="stylesheet" href="{% static "blog/question.css" %}"/>
     <link rel="stylesheet" href="{% static "blog/index.css" %}"/>
 {% endblock %}
 
@@ -20,11 +20,11 @@
         <p>Hi, I am PAVEL and I love programming and its effective techniques!</p>
     </section>
 
-    <section id="latest-posts">
+    <section id="latest-questions">
         <h2>Latest interesting interview questions</h2><br><br><br>
         <ul>
-            {% for post in posts %}
-                {% include "blog/includes/post.html" %}
+            {% for question in questions %}
+                {% include "blog/includes/question.html" %}
             {% endfor %}
         </ul>
     </section>

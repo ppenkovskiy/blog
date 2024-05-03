@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-    {{ post.title }}
+    {{ question.title }}
 {% endblock %}
 
 {% block css_files %}
-    <link rel="stylesheet" href="{% static "blog/post-detail.css" %}"/>
+    <link rel="stylesheet" href="{% static "blog/question-detail.css" %}"/>
 {% endblock %}
 
 {% block content %}
@@ -14,15 +14,15 @@
     {% if comment_form.errors %}
         <div id="alert">
             <h2>Saving the comment failed!</h2>
-            <p>Please check the comment form below the post and fix the errors.</p>
+            <p>Please check the comment form below the question and fix the errors.</p>
             <a href="#comment-form">Fix!</a>
         </div>
     {% endif %}
 
     <section id="summary">
-        <h2>{{ post.title }}</h2><br>
+        <h2>{{ question.title }}</h2><br>
         <div>
-            {% for t in post_tags %}
+            {% for t in question_tags %}
                 <span class="tag">{{ t.caption }}</span>
             {% endfor %}
         </div>
@@ -30,7 +30,7 @@
         <div id="read-later">
             <form action="{% url 'read-later-page' %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" value="{{ post.id }}" name="post_id">
+                <input type="hidden" value="{{ question.id }}" name="question_id">
                 <button>
                     {% if saved_for_later %}
                         Remove from "Read Later" List
@@ -42,17 +42,18 @@
         </div>
 
         <article>
-            <img src="{{ post.image.url }}" alt={{ post.title }} />
-{#            <address>by <a href="mailto:{{ post.user.email_address }}">{{ post.user }}</a></address>#}
-            <div>Last updated on <time>{{ post.date }}</time></div>
-            <div>Owner: {{ post.user }}</div>
+            <img src="{{ question.image.url }}" alt={{ question.title }} />
+{#            <address>by <a href="mailto:{{ question.user.email_address }}">{{ question.user }}</a></address>#}
+            <div>Last updated on <time>{{ question.date }}</time></div>
+            <div>Owner: {{ question.user }}</div>
         </article>
     </section>
 
     <main>
-        {{ post.content|linebreaks }}
+        {{ question.content|linebreaks }}
     </main>
 
+    {% if comments %}
     <section id="comments">
         <ul>
         {% for comment in comments %}
@@ -63,11 +64,11 @@
         {% endfor %}
         </ul>
     </section>
-
+    {% endif %}
 
     <section id="comment-form">
         {% if user.is_authenticated %}
-            <form action="{% url "post-detail-page" post.slug %}" method="POST">
+            <form action="{% url "question-detail-page" question.slug %}" method="POST">
                 {% csrf_token %}
                 {% for form_field in comment_form %}
                     <div class="form-control {% if form_field.errors %}invalid{% endif %}">
@@ -79,7 +80,7 @@
                 <button>Save comment</button>
             </form>
         {% else %}
-            <p >To comment this post, please, log in.</p>
+            <p >To comment this question, please, log in.</p>
         {% endif %}
     </section>
 
