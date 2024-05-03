@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Post, Tag, Comment
 from .forms import CommentForm
@@ -14,10 +15,17 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
+class PostAPIPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
+    pagination_class = PostAPIPagination
 
 
 class TagViewSet(viewsets.ModelViewSet):
