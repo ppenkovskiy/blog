@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
-from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Post, Tag, Comment
@@ -131,6 +130,8 @@ class ReadLaterView(View):
             stored_posts.append(post_id)
         else:
             stored_posts.remove(post_id)
+
         request.session['stored_posts'] = stored_posts
 
         return HttpResponseRedirect('/')  # redirect to starting page
+

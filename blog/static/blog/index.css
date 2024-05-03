@@ -1,5 +1,5 @@
 #welcome {
-  background: linear-gradient(to right top, #935f9d, #6d328c);
+  background: linear-gradient(to right top, #7d5680, #7d5680);
   padding: 6rem 12%;
 }
 
@@ -62,16 +62,16 @@
 
 #about {
   text-align: center;
-  padding: 3rem;
-  background-color: #e48900;
-  margin-top: 5rem;
+  padding: 0.5rem;
+  background-color: #e8b059;
+  margin-top: 15rem;
 }
 
 #about h2 {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 #about p {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: #353535;
 }
