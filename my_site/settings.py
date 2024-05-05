@@ -28,7 +28,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
-                 '127.0.0.1']
+                 '127.0.0.1',
+                 '127.0.0.0']
 
 INSTALLED_APPS = [
     'rest_framework_simplejwt',
@@ -77,9 +78,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_site.wsgi.application'
 
 DATABASES = {
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': os.environ.get('DB_HOST'),
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
 
