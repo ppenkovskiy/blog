@@ -27,7 +27,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0',
+                 '127.0.0.1']
 
 INSTALLED_APPS = [
     'rest_framework_simplejwt',
