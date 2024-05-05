@@ -27,14 +27,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    # getenv('APP_HOST'),
-    '127.0.0.1',
-    '0.0.0.0',
-    '127.0.0.0',
-]
-
-# Application definition
+ALLOWED_HOSTS = ['0.0.0.0']
 
 INSTALLED_APPS = [
     'rest_framework_simplejwt',
@@ -81,9 +74,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_site.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
