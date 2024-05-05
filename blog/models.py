@@ -20,7 +20,7 @@ class Question(models.Model):
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
     tag = models.ManyToManyField(Tag)
-    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)   # noqa
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -40,6 +40,6 @@ class Question(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE, related_name='comments')   # noqa
     text = models.TextField(max_length=400)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='comments')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='comments')   # noqa

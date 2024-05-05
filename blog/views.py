@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 from django.views import View
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated   # noqa
 from .models import Question, Tag, Comment
 from .forms import CommentForm, SignUpForm
 from django.http import HttpResponseRedirect
@@ -92,7 +92,7 @@ class ReviewDetailView(View):
             comment.question = question
             comment.user = user
             comment.save()
-            return HttpResponseRedirect(reverse('question-detail-page', args=[slug]))
+            return HttpResponseRedirect(reverse('question-detail-page', args=[slug]))   # noqa
 
         context = {
             'question': question,

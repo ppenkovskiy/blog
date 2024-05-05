@@ -21,7 +21,7 @@ class TagSerializer(serializers.ModelSerializer):
             caption = '#' + caption
         existing_tag = Tag.objects.filter(caption=caption).exists()
         if existing_tag:
-            raise serializers.ValidationError("Tag with this name already exists.")
+            raise serializers.ValidationError("Tag with this name already exists.")   # noqa
         return value
 
 
